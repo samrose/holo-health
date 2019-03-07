@@ -51,14 +51,13 @@ func main(){
     buf := new(bytes.Buffer)
     buf.ReadFrom(filerc)
 
-    //contents := buf.String()
-    x, _ := strconv.Atoi(string(buf))
+    contents := buf.String()
     fmt.Print(contents)
-    //fmt.Println(reflect.TypeOf(contents))
-    //i, _ := strconv.Atoi(contents)
-    fmt.Println(reflect.TypeOf(x))
-    fmt.Println(x)
-    if x > 24000 {
+    fmt.Println(reflect.TypeOf(contents))
+    i, _ := strconv.Atoi(string(contents))
+    fmt.Println(reflect.TypeOf(i))
+    fmt.Println(i)
+    if i > 24000 {
         flash_red()
     }
 }
