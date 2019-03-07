@@ -4,7 +4,7 @@ package main
     import "log"
     //import "os/exec"
     import "os"
-    import "strconv"
+    //import "strconv"
     //import "time"
     import "github.com/jacobsa/go-serial/serial"
     //import "github.com/ssimunic/gosensors"
@@ -48,13 +48,11 @@ func main(){
 	}
     defer filerc.Close()
     buf := new(bytes.Buffer)
-    contents := buf.ReadVarInt(filerc)
+    //contents := buf.ReadFrom(filerc)
 
 
-    fmt.Print(contents)
-    //i, err := strconv.ParseInt(contents, 10, 64)
-    //fmt.Printf("%v", i)
-    if i > 24000 {
+    fmt.Print(buf)
+    if buf > 24000 {
         flash_red()
     }
 }
