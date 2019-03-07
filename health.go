@@ -9,7 +9,7 @@ package main
     //import "github.com/kolide/osquery-go"
 
 func read_sensors(){
-	out, err := exec.Command("cat /sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp*_input").Output()
+	out, err := exec.Command("cat /sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp2_input").Output()
 	if err != nil {
 		log.Fatalf("read sensor failed with %v", err)
 	}
