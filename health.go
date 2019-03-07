@@ -59,7 +59,7 @@ func flash_red(){
 }
 func main(){
     read := read_sensors()
-    fmt.Println(read)
+    fmt.Printf("%v", read)
     if read > 24000 {
         flash_red()
     }
