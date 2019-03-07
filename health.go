@@ -54,9 +54,12 @@ func main(){
     contents := buf.String()
     fmt.Print(contents)
     fmt.Println(reflect.TypeOf(contents))
-    n, err := strconv.ParseInt(contents, 10, 64)
-    if err == nil {
+    n, nerr := strconv.ParseInt(contents, 10, 64)
+    if nerr == nil {
         fmt.Printf("%d of type %T", n, n)
+    }
+    if nerr != nil {
+      log.Fatalf("error: %v", nerr)
     }
     fmt.Println(reflect.TypeOf(n))
     fmt.Println(n)
