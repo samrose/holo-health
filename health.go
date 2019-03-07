@@ -4,6 +4,7 @@ package main
     import "log"
     //import "os/exec"
     import "os"
+    import "strconv"
     //import "time"
     import "github.com/jacobsa/go-serial/serial"
     //import "github.com/ssimunic/gosensors"
@@ -17,11 +18,12 @@ func read_sensors() int{
 	}
     defer filerc.Close()
     buf := new(bytes.Buffer)
-    contents := buf.ReadFrom(filerc)
-    //contents := buf.ReadVarint()
+    buf.ReadFrom(filerc)
+    contents := buf.String()
 
     fmt.Print(contents)
-    return contents
+    i, err := strconv.Atoi(contents)
+    return i
 
 }
 
