@@ -11,10 +11,10 @@ package main
 func read_sensors(){
 	out, err := exec.Command("cat /sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp*_input").Output()
 	if err != nil {
-		return &Sensors{}, errors.New("not found")
+		return errr
 	}
 
-	s := construct(string(out))
+	s := string(out)
     fmt.Println(s)
 	//return s, nil
 }
