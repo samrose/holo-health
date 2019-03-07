@@ -50,7 +50,7 @@ func main(){
     buf := new(bytes.Buffer)
     //buf.ReadFrom(filerc)
 
-    x, _ := strconv.Atoi(string(buf.ReadFrom(filerc))
+    x, _ := strconv.Atoi(string(buf.ReadFrom(filerc)))
 
     fmt.Print(x)
     if x > 24000 {
