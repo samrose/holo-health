@@ -54,8 +54,9 @@ func main(){
     contents := buf.String()
 
     fmt.Print(contents)
-    fmt.Println(reflect.TypeOf(contents))
+    //fmt.Println(reflect.TypeOf(contents))
     i, err := strconv.Atoi(contents)
+    fmt.Println(reflect.TypeOf(i))
     if i > 24000 {
         flash_red()
     }
