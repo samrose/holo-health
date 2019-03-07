@@ -48,12 +48,12 @@ func main(){
 	}
     defer filerc.Close()
     buf := new(bytes.Buffer)
-    buf.ReadFrom(filerc)
-    contents := buf.String()
+    contents := buf.ReadVarInt(filerc)
+
 
     fmt.Print(contents)
-    i, err := strconv.ParseInt(contents, 10, 64)
-    fmt.Printf("%v", i)
+    //i, err := strconv.ParseInt(contents, 10, 64)
+    //fmt.Printf("%v", i)
     if i > 24000 {
         flash_red()
     }
