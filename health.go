@@ -52,7 +52,7 @@ func main(){
     contents := buf.String()
 
     fmt.Print(contents)
-    i, err := strconv.Atoi(contents)
+    i, err := strconv.ParseInt(contents, 10, 64)
     fmt.Printf("%v", i)
     if i > 24000 {
         flash_red()
