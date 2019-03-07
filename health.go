@@ -5,7 +5,7 @@ package main
     //import "os/exec"
     import "os"
     import "reflect"
-    //import "strconv"
+    import "strconv"
     //import "time"
     import "github.com/jacobsa/go-serial/serial"
     //import "github.com/ssimunic/gosensors"
