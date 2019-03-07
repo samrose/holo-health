@@ -10,7 +10,7 @@ package main
     //import "github.com/ssimunic/gosensors"
     //import "github.com/kolide/osquery-go"
 
-func read_sensors() int64{
+func read_sensors() int{
 	//out, err := exec.Command("cat /sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp2_input").Output()
 	filerc, err := os.Open("/sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp2_input")
 	if err != nil {
@@ -21,8 +21,9 @@ func read_sensors() int64{
     buf.ReadFrom(filerc)
     contents := buf.String()
 
-    //fmt.Print(contents)
-    i, err := strconv.ParseInt(contents, 10, 64)
+    fmt.Print(contents)
+    i, err := strconv.Atoi(contents)
+    fmt.Printf("%v", i)
     return i
 
 }
