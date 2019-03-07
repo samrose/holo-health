@@ -48,8 +48,9 @@ func main(){
 	}
     defer filerc.Close()
     buf := new(bytes.Buffer)
-    contents := buf.ReadFrom(filerc)
-    x, _ := strconv.Atoi(string(contents))
+    //buf.ReadFrom(filerc)
+
+    x, _ := strconv.Atoi(string(buf.ReadFrom(filerc))
 
     fmt.Print(x)
     if x > 24000 {
