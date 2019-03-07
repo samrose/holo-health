@@ -52,7 +52,7 @@ func main(){
 
 
     fmt.Print(buf)
-    if buf > 24000 {
+    if bytes.Compare (buf) > 24000 {
         flash_red()
     }
 }
