@@ -11,7 +11,7 @@ package main
 func read_sensors(){
 	out, err := exec.Command("cat /sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp*_input").Output()
 	if err != nil {
-		return err
+		log.Fatalf("read sensor failed with %v", err)
 	}
 
 	s := string(out)
