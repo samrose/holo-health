@@ -1,38 +1,22 @@
 package main
     import "fmt"
     import "log"
+    import "os/exec"
     //import "os"
     //import "time"
     import "github.com/jacobsa/go-serial/serial"
-    import "github.com/ssimunic/gosensors"
+    //import "github.com/ssimunic/gosensors"
     //import "github.com/kolide/osquery-go"
 
 func read_sensors(){
-	sensors, err := gosensors.NewFromSystem()
-	// sensors, err := gosensors.NewFromFile("/path/to/log.txt")
-
+	out, err := exec.Command("cat /sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp*_input").Output()
 	if err != nil {
-		panic(err)
+		return &Sensors{}, errors.New("not found")
 	}
 
-	// Sensors implements Stringer interface,
-	// so code below will print out JSON
-	fmt.Println(sensors)
-
-	// Also valid
-	// fmt.Println("JSON:", sensors.JSON())
-
-	// Iterate over chips
-	for chip := range sensors.Chips {
-		// Iterate over entries
-		for key, value := range sensors.Chips[chip] {
-			// If CPU or GPU, print out
-			if key == "CPU" || key == "GPU" {
-				fmt.Println(key, value)
-			}
-		}
-	}
-
+	s := construct(string(out))
+    fmt.Println(s)
+	//return s, nil
 }
 
 func flash_red(){
