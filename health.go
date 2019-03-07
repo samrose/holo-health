@@ -22,7 +22,7 @@ func read_sensors() int{
     contents := buf.String()
 
     //fmt.Print(contents)
-    i, err := strconv.Atoi(contents)
+    i, err := strconv.ParseInt(contents, 10, 64)
     return i
 
 }
