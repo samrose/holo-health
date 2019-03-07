@@ -21,7 +21,7 @@ func read_sensors() int{
     buf.ReadFrom(filerc)
     contents := buf.String()
 
-    fmt.Print(contents)
+    //fmt.Print(contents)
     i, err := strconv.Atoi(contents)
     return i
 
@@ -58,6 +58,7 @@ func flash_red(){
 }
 func main(){
     read := read_sensors()
+    fmt.Println(read)
     if read > 24000 {
         flash_red()
     }
