@@ -17,8 +17,8 @@ func read_sensors() int{
 	}
     defer filerc.Close()
     buf := new(bytes.Buffer)
-    buf.ReadFrom(filerc)
-    contents := buf.Integer()
+    contents := buf.ReadFrom(filerc)
+    //contents := buf.ReadVarint()
 
     fmt.Print(contents)
     return contents
