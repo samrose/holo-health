@@ -21,7 +21,7 @@ func read_sensors(){
     contents := buf.String()
 
     fmt.Print(contents)
-
+    return contents
 
 }
 
@@ -45,7 +45,7 @@ func flash_red(){
     defer port.Close()
 
     // Write 2 bytes to the port.
-    b := []byte("P*")
+    b := []byte("R*")
     n, err := port.Write(b)
     if err != nil {
       log.Fatalf("port.Write: %v", err)
@@ -55,7 +55,9 @@ func flash_red(){
 
 }
 func main(){
-    read_sensors()
-    flash_red()
+    read = read_sensors()
+    if read > 24000 {
+        flash_red()
+    }
 }
 
