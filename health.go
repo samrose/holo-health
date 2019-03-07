@@ -1,11 +1,11 @@
 package main
     import "fmt"
     import "log"
-    import "os"
-    import "time"
+    //import "os"
+    //import "time"
     import "github.com/jacobsa/go-serial/serial"
     import "github.com/ssimunic/gosensors"
-    import "github.com/kolide/osquery-go"
+    //import "github.com/kolide/osquery-go"
 
 func read_sensors(){
 	sensors, err := gosensors.NewFromSystem()
