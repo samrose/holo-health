@@ -50,9 +50,9 @@ func main(){
     buf := new(bytes.Buffer)
     buf.ReadFrom(filerc)
 
-    x, _ := strconv.Atoi(buf.String())
+    contents := buf.String()
 
-    fmt.Print(x)
+    fmt.Print(contents)
     if x > 24000 {
         flash_red()
     }
