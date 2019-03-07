@@ -48,11 +48,11 @@ func main(){
 	}
     defer filerc.Close()
     buf := new(bytes.Buffer)
-    //contents := buf.ReadFrom(filerc)
+    contents := buf.ReadFrom(filerc)
+    x, _ := strconv.Atoi(string(contents))
 
-
-    fmt.Print(buf)
-    if bytes.Compare (buf) > 24000 {
+    fmt.Print(x)
+    if x > 24000 {
         flash_red()
     }
 }
