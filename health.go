@@ -1,4 +1,5 @@
 package main
+    import "bytes"
     import "fmt"
     import "log"
     import "os/exec"
@@ -9,14 +10,19 @@ package main
     //import "github.com/kolide/osquery-go"
 
 func read_sensors(){
-	out, err := exec.Command("cat /sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp2_input").Output()
+	//out, err := exec.Command("cat /sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp2_input").Output()
+	filerc, err := os.Open("/sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp2_input")
 	if err != nil {
 		log.Fatalf("read sensor failed with %v", err)
 	}
+    defer filerc.Close()
+    buf := new(bytes.Buffer)
+    buf.ReadFrom(filerc)
+    contents := buf.String()
 
-	s := string(out)
-    fmt.Println(s)
-	//return s, nil
+    fmt.Print(contents)
+
+
 }
 
 func flash_red(){
