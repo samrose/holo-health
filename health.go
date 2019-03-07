@@ -4,6 +4,7 @@ package main
     import "log"
     //import "os/exec"
     import "os"
+    import "reflect"
     //import "strconv"
     //import "time"
     import "github.com/jacobsa/go-serial/serial"
@@ -53,6 +54,7 @@ func main(){
     contents := buf.String()
 
     fmt.Print(contents)
+    fmt.Println(reflect.TypeOf(contents))
     if 25000 > 24000 {
         flash_red()
     }
