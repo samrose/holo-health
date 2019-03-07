@@ -6,6 +6,7 @@ package main
     import "os"
     import "reflect"
     import "strconv"
+    import "strings"
     //import "time"
     import "github.com/jacobsa/go-serial/serial"
     //import "github.com/ssimunic/gosensors"
@@ -53,6 +54,7 @@ func main(){
 
     contents := buf.String()
     fmt.Print(contents)
+    contents = strings.TrimSuffix(contents, "\n")
     fmt.Println(reflect.TypeOf(contents))
     n, nerr := strconv.ParseInt(contents, 10, 64)
     if nerr == nil {
