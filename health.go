@@ -32,7 +32,7 @@ func flash_red(){
     defer port.Close()
 
     // Write 2 bytes to the port.
-    b := []byte("Y*")
+    b := []byte("R*")
     n, err := port.Write(b)
     if err != nil {
       log.Fatalf("port.Write: %v", err)
@@ -55,7 +55,8 @@ func main(){
 
     fmt.Print(contents)
     fmt.Println(reflect.TypeOf(contents))
-    if 25000 > 24000 {
+    i, err := strconv.Atoi(contents)
+    if i > 24000 {
         flash_red()
     }
 }
