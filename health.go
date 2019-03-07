@@ -11,7 +11,7 @@ package main
 func read_sensors(){
 	out, err := exec.Command("cat /sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp*_input").Output()
 	if err != nil {
-		return errr
+		return err
 	}
 
 	s := string(out)
