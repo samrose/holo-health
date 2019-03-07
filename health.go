@@ -4,7 +4,7 @@ package main
     import "log"
     //import "os/exec"
     import "os"
-    //import "strconv"
+    import "strconv"
     //import "time"
     import "github.com/jacobsa/go-serial/serial"
     //import "github.com/ssimunic/gosensors"
@@ -44,7 +44,7 @@ func main(){
 	//out, err := exec.Command("cat /sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp2_input").Output()
 	filerc, err := os.Open("/sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp2_input")
 	if err != nil {
-		log.Fatalf("read sensor failed with %v", err)
+		log.Fatalf("read temp sensor failed with %v", err)
 	}
     defer filerc.Close()
     buf := new(bytes.Buffer)
