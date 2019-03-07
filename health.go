@@ -10,23 +10,6 @@ package main
     //import "github.com/ssimunic/gosensors"
     //import "github.com/kolide/osquery-go"
 
-func read_sensors() int{
-	//out, err := exec.Command("cat /sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp2_input").Output()
-	filerc, err := os.Open("/sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp2_input")
-	if err != nil {
-		log.Fatalf("read sensor failed with %v", err)
-	}
-    defer filerc.Close()
-    buf := new(bytes.Buffer)
-    buf.ReadFrom(filerc)
-    contents := buf.String()
-
-    fmt.Print(contents)
-    i, err := strconv.Atoi(contents)
-    fmt.Printf("%v", i)
-    return i
-
-}
 
 func flash_red(){
     // Set up options.
@@ -58,9 +41,20 @@ func flash_red(){
 
 }
 func main(){
-    read := int read_sensors()
-    fmt.Printf("%v", read)
-    if read > 24000 {
+	//out, err := exec.Command("cat /sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp2_input").Output()
+	filerc, err := os.Open("/sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp2_input")
+	if err != nil {
+		log.Fatalf("read sensor failed with %v", err)
+	}
+    defer filerc.Close()
+    buf := new(bytes.Buffer)
+    buf.ReadFrom(filerc)
+    contents := buf.String()
+
+    fmt.Print(contents)
+    i, err := strconv.Atoi(contents)
+    fmt.Printf("%v", i)
+    if i > 24000 {
         flash_red()
     }
 }
