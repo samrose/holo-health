@@ -54,10 +54,13 @@ func main(){
     contents := buf.String()
     fmt.Print(contents)
     fmt.Println(reflect.TypeOf(contents))
-    i, _ := strconv.Atoi(string(contents))
-    fmt.Println(reflect.TypeOf(i))
-    fmt.Println(i)
-    if i > 24000 {
+    n, err := strconv.ParseInt(contents, 10, 64)
+    if err == nil {
+        fmt.Printf("%d of type %T", n, n)
+    }
+    fmt.Println(reflect.TypeOf(n))
+    fmt.Println(n)
+    if n > 24000 {
         flash_red()
     }
 }
