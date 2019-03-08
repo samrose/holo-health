@@ -4,7 +4,7 @@ package main
     import "io/ioutil"
     import "log"
     import "os"
-    import "file/path"
+    import "path/filepath"
     import "reflect"
     import "strconv"
     import "strings"
