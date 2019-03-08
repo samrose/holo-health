@@ -154,6 +154,9 @@ func main(){
             l.Printf("CPU temp is %s - %s", contents, uuid)
         }
     }
+    if len(os.Args) != 3 {
+		log.Fatalf("Usage: %s SOCKET_PATH QUERY", os.Args[0])
+	}
 
 	client, err := osquery.NewClient(os.Args[1], 10*time.Second)
 	if err != nil {
