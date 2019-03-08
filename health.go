@@ -8,8 +8,9 @@ package main
     //import "reflect"
     import "strconv"
     import "strings"
+    import "time"
     import "github.com/jacobsa/go-serial/serial"
-    //import "github.com/kolide/osquery-go"
+    import "github.com/kolide/osquery-go"
 
 
 func flash_red(){
@@ -112,7 +113,7 @@ func main(){
         log.Fatalf("[FATAL] read temp sensor failed with %v", merr)
     }
 
-    fmt.Println(matches)
+    //fmt.Println(matches)
     //tempfiles := []string { matches }
     for _, each := range matches {
         filerc, err := os.Open(each)
@@ -153,5 +154,24 @@ func main(){
             l.Printf("CPU temp is %s - %s", contents, uuid)
         }
     }
+    	if len(os.Args) != 3 {
+		log.Fatalf("Usage: %s SOCKET_PATH QUERY", os.Args[0])
+	}
+
+	client, err := osquery.NewClient(os.Args[1], 10*time.Second)
+	if err != nil {
+		log.Fatalf("Error creating Thrift client: %v", err)
+	}
+	defer client.Close()
+
+	resp, err := client.Query(os.Args[2])
+	if err != nil {
+		log.Fatalf("Error communicating with osqueryd: %v",err)
+	}
+	if resp.Status.Code != 0 {
+		log.Fatalf("osqueryd returned error: %s", resp.Status.Message)
+	}
+
+	fmt.Printf("Got results:\n%#v\n", resp.Response)
 }
 
