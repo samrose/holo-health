@@ -113,8 +113,8 @@ func main(){
     }
 
     fmt.Println(matches)
-    tempfiles := []string { matches }
-    for _, each := range tempfiles {
+    //tempfiles := []string { matches }
+    for _, each := range matches {
         filerc, err := os.Open(each)
         if err != nil {
             log.Fatalf("[FATAL] read temp sensor failed with %v", err)
