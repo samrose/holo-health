@@ -1,6 +1,7 @@
 package main
     import "bytes"
     import "fmt"
+    import "io/ioutil"
     import "log"
     import "os"
     import "reflect"
@@ -60,7 +61,7 @@ func flash_yellow(){
     defer port.Close()
 
     // Write 2 bytes to the port.
-    b := []byte("Y*")
+    b := []byte("P*")
     n, err := port.Write(b)
     if err != nil {
       log.Fatalf("port.Write: %v", err)
@@ -82,7 +83,7 @@ func set_aurora(){
     // Open the port.
     port, err := serial.Open(options)
     if err != nil {
-      log.Fatalf("serial.Open: %v", err)
+      log.Fatalf("[FATAL] serial.Open: %v", err)
     }
 
     // Make sure to close it later.
@@ -92,17 +93,23 @@ func set_aurora(){
     b := []byte("A<")
     n, err := port.Write(b)
     if err != nil {
-      log.Fatalf("port.Write: %v", err)
+      log.Fatalf("[FATAL] port.Write: %v", err)
     }
 
     fmt.Println("Wrote", n, "bytes.")
 
 }
+func uuid() string{
+    u, _ := ioutil.ReadFile("/proc/sys/kernel/random/uuid")
+    fmt.Println(string(u))
+    return string(u)
+}
 
+}
 func main(){
 	filerc, err := os.Open("/sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp2_input")
 	if err != nil {
-		log.Fatalf("read temp sensor failed with %v", err)
+		log.Fatalf("[FATAL] read temp sensor failed with %v", err)
 	}
     defer filerc.Close()
     buf := new(bytes.Buffer)
@@ -125,6 +132,7 @@ func main(){
         flash_yellow()
         l := log.New(os.Stdout, "[Warning] ", log.Ldate | log.Ltime)
         l.Printf("CPU temp is %s", contents)
+        l.Printf("%s", uuid())
     }
 }
 
