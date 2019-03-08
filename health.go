@@ -105,7 +105,6 @@ func uuid() string{
     return string(u)
 }
 
-}
 func main(){
 	filerc, err := os.Open("/sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp2_input")
 	if err != nil {
