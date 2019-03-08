@@ -4,6 +4,7 @@ package main
     import "io/ioutil"
     import "log"
     import "os"
+    import "file/path"
     import "reflect"
     import "strconv"
     import "strings"
@@ -105,6 +106,7 @@ func uuid() string{
 }
 
 func main(){
+    fmt.Println(filepath.Match("/sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/", "/sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp*_input"))
     tempfiles := []string {
         "/sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp2_input",
         "/sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp3_input",
