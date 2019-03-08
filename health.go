@@ -5,7 +5,7 @@ package main
     import "log"
     import "os"
     import "path/filepath"
-    import "reflect"
+    //import "reflect"
     import "strconv"
     import "strings"
     import "github.com/jacobsa/go-serial/serial"
