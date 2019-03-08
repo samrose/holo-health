@@ -124,9 +124,9 @@ func main(){
         buf.ReadFrom(filerc)
 
         contents := buf.String()
-        fmt.Print(contents)
+        //fmt.Print(contents)
         contents = strings.TrimSuffix(contents, "\n")
-        fmt.Println(reflect.TypeOf(contents))
+        //fmt.Println(reflect.TypeOf(contents))
         n, nerr := strconv.ParseInt(contents, 10, 64)
         if nerr == nil {
             fmt.Printf("%d of type %T", n, n)
@@ -135,8 +135,8 @@ func main(){
           log.Fatalf("[FATAL] error: %v", nerr)
         }
         uuid := uuid()
-        fmt.Println(reflect.TypeOf(n))
-        fmt.Println(n)
+        //fmt.Println(reflect.TypeOf(n))
+        //fmt.Println(n)
         if n > 79000 {
             flash_yellow()
             l := log.New(os.Stdout, "[WARNING] ", log.Ldate | log.Ltime)
