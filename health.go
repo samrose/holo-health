@@ -7,7 +7,6 @@ package main
     import "reflect"
     import "strconv"
     import "strings"
-    //import "time"
     import "github.com/jacobsa/go-serial/serial"
     //import "github.com/kolide/osquery-go"
 
@@ -106,42 +105,48 @@ func uuid() string{
 }
 
 func main(){
-	filerc, err := os.Open("/sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp2_input")
-	if err != nil {
-		log.Fatalf("[FATAL] read temp sensor failed with %v", err)
-	}
-    defer filerc.Close()
-    buf := new(bytes.Buffer)
-    buf.ReadFrom(filerc)
+    tempfiles := []string {
+        "/sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp2_input",
+        "/sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp3_input",
+    }
+    for index, each := range tempfiles {
+        filerc, err := os.Open(each)
+        if err != nil {
+            log.Fatalf("[FATAL] read temp sensor failed with %v", err)
+        }
+        defer filerc.Close()
+        buf := new(bytes.Buffer)
+        buf.ReadFrom(filerc)
 
-    contents := buf.String()
-    fmt.Print(contents)
-    contents = strings.TrimSuffix(contents, "\n")
-    fmt.Println(reflect.TypeOf(contents))
-    n, nerr := strconv.ParseInt(contents, 10, 64)
-    if nerr == nil {
-        fmt.Printf("%d of type %T", n, n)
-    }
-    if nerr != nil {
-      log.Fatalf("error: %v", nerr)
-    }
-    uuid := uuid()
-    fmt.Println(reflect.TypeOf(n))
-    fmt.Println(n)
-    if n > 79000 {
-        flash_yellow()
-        l := log.New(os.Stdout, "[WARNING] ", log.Ldate | log.Ltime)
-        l.Printf("CPU temp is %s - %s", contents, uuid)
-    }
-    if n > 99000 {
-        flash_red()
-        l := log.New(os.Stdout, "[WARNING] ", log.Ldate | log.Ltime)
-        l.Printf("CPU temp is %s - %s", contents, uuid)
-    }
-    if n < 79000 {
-        set_aurora()
-        l := log.New(os.Stdout, "[INFO] ", log.Ldate | log.Ltime)
-        l.Printf("CPU temp is %s - %s", contents, uuid)
+        contents := buf.String()
+        fmt.Print(contents)
+        contents = strings.TrimSuffix(contents, "\n")
+        fmt.Println(reflect.TypeOf(contents))
+        n, nerr := strconv.ParseInt(contents, 10, 64)
+        if nerr == nil {
+            fmt.Printf("%d of type %T", n, n)
+        }
+        if nerr != nil {
+          log.Fatalf("[FATAL] error: %v", nerr)
+        }
+        uuid := uuid()
+        fmt.Println(reflect.TypeOf(n))
+        fmt.Println(n)
+        if n > 79000 {
+            flash_yellow()
+            l := log.New(os.Stdout, "[WARNING] ", log.Ldate | log.Ltime)
+            l.Printf("CPU temp is %s - %s", contents, uuid)
+        }
+        if n > 99000 {
+            flash_red()
+            l := log.New(os.Stdout, "[WARNING] ", log.Ldate | log.Ltime)
+            l.Printf("CPU temp is %s - %s", contents, uuid)
+        }
+        if n < 79000 {
+            set_aurora()
+            l := log.New(os.Stdout, "[INFO] ", log.Ldate | log.Ltime)
+            l.Printf("CPU temp is %s - %s", contents, uuid)
+        }
     }
 }
 
