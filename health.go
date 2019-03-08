@@ -61,7 +61,7 @@ func flash_yellow(){
     defer port.Close()
 
     // Write 2 bytes to the port.
-    b := []byte("P*")
+    b := []byte("Y*")
     n, err := port.Write(b)
     if err != nil {
       log.Fatalf("port.Write: %v", err)
@@ -128,9 +128,19 @@ func main(){
     uuid := uuid()
     fmt.Println(reflect.TypeOf(n))
     fmt.Println(n)
-    if n > 19000 {
+    if n > 79000 {
         flash_yellow()
-        l := log.New(os.Stdout, "[Warning] ", log.Ldate | log.Ltime)
+        l := log.New(os.Stdout, "[WARNING] ", log.Ldate | log.Ltime)
+        l.Printf("CPU temp is %s - %s", contents, uuid)
+    }
+    if n > 99000 {
+        flash_red()
+        l := log.New(os.Stdout, "[WARNING] ", log.Ldate | log.Ltime)
+        l.Printf("CPU temp is %s - %s", contents, uuid)
+    }
+    if n < 79000 {
+        set_aurora()
+        l := log.New(os.Stdout, "[INFO] ", log.Ldate | log.Ltime)
         l.Printf("CPU temp is %s - %s", contents, uuid)
     }
 }
