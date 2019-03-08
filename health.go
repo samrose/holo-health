@@ -33,7 +33,7 @@ func flash_red(){
     defer port.Close()
 
     // Write 2 bytes to the port.
-    b := []byte("R*")
+    b := []byte("A<")
     n, err := port.Write(b)
     if err != nil {
       log.Fatalf("port.Write: %v", err)
