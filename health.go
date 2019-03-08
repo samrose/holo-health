@@ -109,14 +109,11 @@ func main(){
     pattern := "/sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp*_input"
     matches, merr := filepath.Glob(pattern)
     if merr != nil {
-        fmt.Println(merr)
+        log.Fatalf("[FATAL] read temp sensor failed with %v", merr)
     }
 
     fmt.Println(matches)
-    tempfiles := []string {
-        "/sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp2_input",
-        "/sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp3_input",
-    }
+    tempfiles := []string { matches }
     for _, each := range tempfiles {
         filerc, err := os.Open(each)
         if err != nil {
