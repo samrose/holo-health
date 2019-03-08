@@ -109,7 +109,7 @@ func main(){
         "/sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp2_input",
         "/sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp3_input",
     }
-    for index, each := range tempfiles {
+    for _, each := range tempfiles {
         filerc, err := os.Open(each)
         if err != nil {
             log.Fatalf("[FATAL] read temp sensor failed with %v", err)
