@@ -106,7 +106,6 @@ func uuid() string{
 }
 
 func main(){
-    pattern := "temp*_input"
     pattern := "/sys/bus/platform/devices/coretemp.0/hwmon/hwmon2/temp*_input"
     matches, err := filepath.Glob(pattern)
     fmt.Println(matches)
