@@ -101,7 +101,7 @@ func set_aurora(){
 }
 func uuid() string{
     u, _ := ioutil.ReadFile("/proc/sys/kernel/random/uuid")
-    fmt.Println(string(u))
+    //fmt.Println(string(u))
     return string(u)
 }
 
@@ -125,13 +125,13 @@ func main(){
     if nerr != nil {
       log.Fatalf("error: %v", nerr)
     }
+    uuid := uuid()
     fmt.Println(reflect.TypeOf(n))
     fmt.Println(n)
     if n > 19000 {
         flash_yellow()
         l := log.New(os.Stdout, "[Warning] ", log.Ldate | log.Ltime)
-        l.Printf("CPU temp is %s", contents)
-        l.Printf("%s", uuid())
+        l.Printf("CPU temp is %s - %s", contents, uuid)
     }
 }
 
