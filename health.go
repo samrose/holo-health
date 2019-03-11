@@ -154,17 +154,12 @@ func main(){
             l.Printf("CPU temp is %s - %s", contents, uuid)
         }
     }
-    if len(os.Args) != 3 {
-		log.Fatalf("Usage: %s SOCKET_PATH QUERY", os.Args[0])
-	}
-
-	client, err := osquery.NewClient(os.Args[1], 10*time.Second)
-	if err != nil {
-		log.Fatalf("Error creating Thrift client: %v", err)
-	}
-	defer client.Close()
-
-	resp, err := client.Query(os.Args[2])
+    client, err := osquery.NewClient("/var/osquery/osquery.em", 10*time.Second)
+    if err != nil {
+	    log.Fatalf("Error creating Thrift client: %v", err)
+    }
+    defer client.Close()
+	resp, err := client.Query("select version from kernel_info;")
 	if err != nil {
 		log.Fatalf("Error communicating with osqueryd: %v",err)
 	}
@@ -173,5 +168,6 @@ func main(){
 	}
 
 	fmt.Printf("Got results:\n%#v\n", resp.Response)
+
 }
 
