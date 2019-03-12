@@ -171,6 +171,16 @@ func main(){
         encontents := enbuf.String()
         //enuuid := uuid()
         fmt.Print(encontents)
+        if strings.TrimRight(encontents, "\n") == "down" {
+            flash_yellow()
+            l := log.New(os.Stdout, "[WARNING] ", log.Ldate | log.Ltime)
+            l.Printf("Network is %s - %s", encontents, enuuid)
+        }
+        if strings.TrimRight(encontents, "\n") == "up" {
+            set_aurora()
+            l := log.New(os.Stdout, "[WARNING] ", log.Ldate | log.Ltime)
+            l.Printf("Network is %s - %s", encontents, enuuid)
+        }
 
     }
 }
