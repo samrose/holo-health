@@ -8,10 +8,10 @@ package main
     //import "reflect"
     import "strconv"
     import "strings"
-    import "time"
+    //import "time"
     import "github.com/jacobsa/go-serial/serial"
     //import "github.com/kolide/osquery-go"
-    import "github.com/coreos/go-systemd/dbus"
+    //import "github.com/coreos/go-systemd/dbus"
 
 func flash_red(){
     // Set up options.
@@ -154,18 +154,24 @@ func main(){
             l.Printf("CPU temp is %s - %s", contents, uuid)
         }
     }
- 	conn, err := dbus.New()
-	if err != nil {
-		fmt.Println("error getting connection: ", err)
-	}
-	res, err := conn.ListUnitsByNames([]string{"nix-daemon.service"})
-	if err != nil {
-		fmt.Println("error with ListUnitsByNames: ", err)
-		return
-	}
-	fmt.Printf("%+q\n",res)
-}
+    enpattern := "/sys/class/net/en*/operstate"
+    enmatches, enmerr := filepath.Glob(enpattern)
+    if enmerr != nil {
+        log.Fatalf("[FATAL] read operstate failed with %v", enmerr)
+    }
+    for _, each := range enmatches {
+        enfilerc, ferr := os.Open(each)
+        if ferr != nil {
+            log.Fatalf("[FATAL] read operstate failed with %v", ferr)
+        }
+        defer enfilerc.Close()
+        enbuf := new(bytes.Buffer)
+        enbuf.ReadFrom(filerc)
 
+        encontents := enbuf.String()
+        enuuid := uuid()
+        fmt.Print(encontents)
 
+    }
 }
 
