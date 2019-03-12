@@ -71,6 +71,35 @@ func flash_yellow(){
     fmt.Println("Wrote", n, "bytes.")
 
 }
+func flash_purple(){
+    // Set up options.
+    options := serial.OpenOptions{
+      PortName: "/dev/ttyUSB0",
+      BaudRate: 19200,
+      DataBits: 8,
+      StopBits: 1,
+      MinimumReadSize: 4,
+    }
+
+    // Open the port.
+    port, err := serial.Open(options)
+    if err != nil {
+      log.Fatalf("serial.Open: %v", err)
+    }
+
+    // Make sure to close it later.
+    defer port.Close()
+
+    // Write 2 bytes to the port.
+    b := []byte("P*")
+    n, err := port.Write(b)
+    if err != nil {
+      log.Fatalf("port.Write: %v", err)
+    }
+
+    fmt.Println("Wrote", n, "bytes.")
+
+}
 func set_aurora(){
     // Set up options.
     options := serial.OpenOptions{
@@ -172,13 +201,13 @@ func main(){
         enuuid := uuid()
         fmt.Print(encontents)
         if strings.TrimRight(encontents, "\n") == "down" {
-            flash_yellow()
+            flash_purple()
             l := log.New(os.Stdout, "[WARNING] ", log.Ldate | log.Ltime)
             l.Printf("Network is %s - %s", encontents, enuuid)
         }
         if strings.TrimRight(encontents, "\n") == "up" {
             set_aurora()
-            l := log.New(os.Stdout, "[WARNING] ", log.Ldate | log.Ltime)
+            l := log.New(os.Stdout, "[INFO] ", log.Ldate | log.Ltime)
             l.Printf("Network is %s - %s", encontents, enuuid)
         }
 
