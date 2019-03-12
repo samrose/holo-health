@@ -169,7 +169,7 @@ func main(){
         enbuf.ReadFrom(enfilerc)
 
         encontents := enbuf.String()
-        enuuid := uuid()
+        //enuuid := uuid()
         fmt.Print(encontents)
 
     }
