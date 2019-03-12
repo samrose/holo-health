@@ -10,8 +10,8 @@ package main
     import "strings"
     import "time"
     import "github.com/jacobsa/go-serial/serial"
-    import "github.com/kolide/osquery-go"
-
+    //import "github.com/kolide/osquery-go"
+    import "github.com/coreos/go-systemd/dbus"
 
 func flash_red(){
     // Set up options.
@@ -154,20 +154,18 @@ func main(){
             l.Printf("CPU temp is %s - %s", contents, uuid)
         }
     }
-    client, err := osquery.NewClient("/var/osquery/osquery.em", 10*time.Second)
-    if err != nil {
-	    log.Fatalf("Error creating Thrift client: %v", err)
-    }
-    defer client.Close()
-	resp, err := client.Query("select version from kernel_info;")
+ 	conn, err := dbus.New()
 	if err != nil {
-		log.Fatalf("Error communicating with osqueryd: %v",err)
+		fmt.Println("error getting connection: ", err)
 	}
-	if resp.Status.Code != 0 {
-		log.Fatalf("osqueryd returned error: %s", resp.Status.Message)
+	res, err := conn.ListUnitsByNames([]string{"nix-daemon.service"})
+	if err != nil {
+		fmt.Println("error with ListUnitsByNames: ", err)
+		return
 	}
+	fmt.Printf("%+q\n",res)
+}
 
-	fmt.Printf("Got results:\n%#v\n", resp.Response)
 
 }
 
