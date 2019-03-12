@@ -166,7 +166,7 @@ func main(){
         }
         defer enfilerc.Close()
         enbuf := new(bytes.Buffer)
-        enbuf.ReadFrom(filerc)
+        enbuf.ReadFrom(enfilerc)
 
         encontents := enbuf.String()
         enuuid := uuid()
